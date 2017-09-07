@@ -8,6 +8,6 @@ namespace RunFest.Models
 {
     public class User : IdentityUser
     {
-        public int Year { get; set; }
+        public string FullName { get; set; }
     }
 }
