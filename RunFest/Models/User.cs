@@ -9,5 +9,7 @@ namespace RunFest.Models
     public class User : IdentityUser
     {
         public string FullName { get; set; }
+        public DateTimeOffset StartTime { get; set; }
+        public DateTimeOffset FinishTime { get; set; }
     }
 }
