@@ -75,10 +75,11 @@ namespace RunFest.Controllers
                     // проверяем, принадлежит ли URL приложению
                     if (!String.IsNullOrEmpty(model.ReturnUrl) && Url.IsLocalUrl(model.ReturnUrl))
                     {
-                        return Redirect(model.ReturnUrl);
+                        return Redirect(model.ReturnUrl); 
                     }
                     else
                     {
+                        var a = User.Identity.IsAuthenticated;
                         return RedirectToAction("Index", "Home");
                     }
                 }

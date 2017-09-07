@@ -12,7 +12,8 @@ namespace RunFest.Controllers
     {
         public IActionResult Index()
         {
-            return View();
+            ViewData["Message"] = "test";
+            return View("Index");
         }
 
         public IActionResult About()
