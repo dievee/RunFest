@@ -13,5 +13,6 @@ namespace RunFest.Models
             : base(options)
         {
         }
+
     }
 }

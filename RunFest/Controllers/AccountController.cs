@@ -23,6 +23,7 @@ namespace RunFest.Controllers
         [HttpGet]
         public IActionResult Index()
         {
+
             return View();
         }
 
@@ -79,7 +80,7 @@ namespace RunFest.Controllers
                     }
                     else
                     {
-                        var a = User.Identity.IsAuthenticated;
+                       // var a = User.Identity.IsAuthenticated;
                         return RedirectToAction("Index", "Home");
                     }
                 }
