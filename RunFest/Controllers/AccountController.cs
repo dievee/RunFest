@@ -6,12 +6,13 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Identity;
 using RunFest.Models;
 using RunFest.ViewModels;
+using System.Threading;
 
 namespace RunFest.Controllers
 {
     public class AccountController : Controller
     {
-        private readonly UserManager<User> _userManager;
+        UserManager<User> _userManager;
         private readonly SignInManager<User> _signInManager;
 
         public AccountController(UserManager<User> userManager, SignInManager<User> signInManager)
@@ -19,10 +20,37 @@ namespace RunFest.Controllers
             _userManager = userManager;
             _signInManager = signInManager;
         }
-
+        //User profile page
         [HttpGet]
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
+           User currentUser = await _userManager.FindByNameAsync(User.Identity.Name); //.Where(UserName => User.Identity.Name == UserName.UserName) as User
+            return View(currentUser);
+        }
+        //User profile page
+        [HttpPost]
+        public async Task<IActionResult> Index(User currentUser)
+        {
+            if (ModelState.IsValid)
+            {
+                string s = "658af784-cee8-41e1-bf59-b990029af16c";
+                User user = await _userManager.FindByIdAsync(currentUser.Id);//currentUser.Id
+                if (user != null)
+                {
+                    user.Email = currentUser.Email;
+                    user.UserName = currentUser.UserName;
+                    user.FullName = currentUser.FullName;
+
+                    var result = await _userManager.UpdateAsync(user);
+                    if (!result.Succeeded)
+                    {
+                        foreach (var error in result.Errors)
+                        {
+                            ModelState.AddModelError(string.Empty, error.Description);
+                        }
+                    }
+                }
+            }
 
             return View();
         }
@@ -80,7 +108,8 @@ namespace RunFest.Controllers
                     }
                     else
                     {
-                       // var a = User.Identity.IsAuthenticated;
+                        // var a = User.Identity.IsAuthenticated;
+                      
                         return RedirectToAction("Index", "Home");
                     }
                 }
