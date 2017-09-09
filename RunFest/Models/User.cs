@@ -11,5 +11,6 @@ namespace RunFest.Models
         public string FullName { get; set; }
         public DateTimeOffset StartTime { get; set; }
         public DateTimeOffset FinishTime { get; set; }
+        public int RunningNumber { get; set; }
     }
 }

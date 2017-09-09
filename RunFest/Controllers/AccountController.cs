@@ -24,7 +24,7 @@ namespace RunFest.Controllers
         [HttpGet]
         public async Task<IActionResult> Index()
         {
-           User currentUser = await _userManager.FindByNameAsync(User.Identity.Name); //.Where(UserName => User.Identity.Name == UserName.UserName) as User
+           User currentUser = await _userManager.FindByNameAsync(User.Identity.Name); 
             return View(currentUser);
         }
         //User profile page
@@ -33,8 +33,7 @@ namespace RunFest.Controllers
         {
             if (ModelState.IsValid)
             {
-                string s = "658af784-cee8-41e1-bf59-b990029af16c";
-                User user = await _userManager.FindByIdAsync(currentUser.Id);//currentUser.Id
+                User user = await _userManager.FindByIdAsync(currentUser.Id);
                 if (user != null)
                 {
                     user.Email = currentUser.Email;
@@ -65,7 +64,7 @@ namespace RunFest.Controllers
         {
             if (ModelState.IsValid)
             {
-                User user = new User { Email = model.Email, UserName = model.Email, FullName = model.FullName };
+                User user = new User { Email = model.Email, UserName = model.Email, FullName = model.FullName, RunningNumber = _userManager.Users.Count() + 1 };
                
                 var result = await _userManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
