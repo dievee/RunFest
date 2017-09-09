@@ -5,7 +5,20 @@
 
 @foreach(var user in Model)
 {
-    <div>
-
+    <div style="background-color: gainsboro;">
+        <p>@user.FullName  @user.RunningNumber</p>
+        <br />
+        <div>
+            <p>@user.StartTime</p>
+            <br />
+            <p>@user.FinishTime</p>
+        </div>
+        <div>
+            <form method="post" action="~/Run/Start">
+                <input type="hidden" name="userId" value="@user.Id" /><br />
+                <input type="submit" value="Start" class="btn btn-success" />
+            </form>
+        </div>
+        
     </div>
 }

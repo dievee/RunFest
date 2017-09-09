@@ -1,6 +1,18 @@
-﻿
+﻿@model List<User>
 @{
     ViewData["Title"] = "Finished";
 }
 
-<h2>Finished</h2>
+@foreach (var user in Model)
+{
+    <div style="background-color: gainsboro;">
+        <p>@user.FullName  @user.RunningNumber</p>
+        <br />
+        <div>
+            <p style="color: green;">@user.StartTime</p>
+            <br />
+            <p style="color: red;">@user.FinishTime</p>
+        </div>
+
+    </div>
+}
