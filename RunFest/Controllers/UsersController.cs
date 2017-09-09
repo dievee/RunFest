@@ -9,9 +9,9 @@ using RunFest.ViewModels;
 
 namespace RunFest.Controllers
 {
-    public class UsersController : Controller
+    public class UsersController : BaseController
     {
-        UserManager<User> _userManager;
+        
 
         public UsersController(UserManager<User> userManager)
         {
@@ -51,7 +51,9 @@ namespace RunFest.Controllers
             {
                 return NotFound();
             }
-            EditUserViewModel model = new EditUserViewModel { Id = user.Id, Email = user.Email, FullName = user.FullName };
+            EditUserViewModel model = new EditUserViewModel { Id = user.Id,
+                                                              Email = user.Email,
+                                                              FullName = user.FullName };
             return View(model);
         }
 

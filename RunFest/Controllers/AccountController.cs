@@ -10,9 +10,8 @@ using System.Threading;
 
 namespace RunFest.Controllers
 {
-    public class AccountController : Controller
-    {
-        UserManager<User> _userManager;
+    public class AccountController : BaseController
+    {       
         private readonly SignInManager<User> _signInManager;
 
         public AccountController(UserManager<User> userManager, SignInManager<User> signInManager)
