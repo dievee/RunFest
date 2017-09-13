@@ -1,6 +1,6 @@
 ﻿@model List<User>
 @{
-    ViewData["Title"] = "Finished";
+    ViewData["Title"] = "Result";
 }
 @if (Model != null && Model.Count != 0)
 {
@@ -10,9 +10,8 @@
             <p>@user.FullName  @user.RunningNumber</p>
             <br />
             <div>
-                <p style="color: green;">@user.StartTime</p>
+                <p style="color: green;">@user.ResultTime</p>
                 <br />
-                <p style="color: red;">@user.FinishTime</p>
             </div>
 
         </div>

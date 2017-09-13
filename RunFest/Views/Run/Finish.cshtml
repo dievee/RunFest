@@ -2,23 +2,29 @@
 @{
     ViewData["Title"] = "Finish";
 }
-
-@foreach (var user in Model)
+@if (Model != null && Model.Count != 0)
 {
-    <div style="background-color: gainsboro;">
-        <p>@user.FullName  @user.RunningNumber</p>
-        <br />
-        <div>
-            <p style="color: green;">@user.StartTime</p>
+    @foreach (var user in Model)
+    {
+        <div style="background-color: gainsboro;">
+            <p>@user.FullName  @user.RunningNumber</p>
             <br />
-            <p>@user.FinishTime</p>
-        </div>
-        <div>
-            <form method="post" action="~/Run/Finish">
-                <input type="hidden" name="userId" value="@user.Id" /><br />
-                <input type="submit" value="Finish" class="btn btn-danger" />
-            </form>
-        </div>
+            <div>
+                <p style="color: green;">@user.StartTime</p>
+                <br />
+                <p>@user.FinishTime</p>
+            </div>
+            <div>
+                <form method="post" action="~/Run/Finish">
+                    <input type="hidden" name="userId" value="@user.Id" /><br />
+                    <input type="submit" value="Finish" class="btn btn-danger" />
+                </form>
+            </div>
 
-    </div>
+        </div>
+    }
+}
+else
+{
+    <p>There is not data in database</p>
 }

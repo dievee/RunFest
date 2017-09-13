@@ -98,12 +98,6 @@ namespace RunFest.Controllers
             return View(Users);
         }
 
-        [HttpGet]
-        public IActionResult Result()
-        {
-            List<User> Users = _userManager.Users.Where(User => User.FinishTime.CompareTo(emptyTime) > 0).OrderBy(User => User.ResultTime).ToList(); //.Where(User => User.StartTime.CompareTo(emptyTime) == 0)
-            
-            return View(Users);
-        }
+        
     }
 }
