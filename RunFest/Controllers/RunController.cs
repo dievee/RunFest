@@ -5,9 +5,11 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Identity;
 using RunFest.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace RunFest.Controllers
 {
+    [Authorize(Roles = "Admin")]
     public class RunController : BaseController
     {
         private readonly DateTimeOffset emptyTime = new DateTimeOffset();

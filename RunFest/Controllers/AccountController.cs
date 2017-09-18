@@ -23,6 +23,7 @@ namespace RunFest.Controllers
         }
         //User profile page
         [HttpGet]
+        [Authorize]
         public async Task<IActionResult> Index()
         {
            User currentUser = await _userManager.FindByNameAsync(User.Identity.Name); 
@@ -30,6 +31,7 @@ namespace RunFest.Controllers
         }
         //User profile page
         [HttpPost]
+        [Authorize]
         public async Task<IActionResult> Index(User currentUser)
         {
             if (ModelState.IsValid)
@@ -56,11 +58,14 @@ namespace RunFest.Controllers
         }
 
         [HttpGet]
+        [AllowAnonymous]
         public IActionResult Register()
         {
             return View();
         }
         [HttpPost]
+        [AllowAnonymous]
+        [ValidateAntiForgeryToken]
         public async Task<IActionResult> Register(RegisterViewModel model)
         {
             if (ModelState.IsValid)
@@ -86,12 +91,14 @@ namespace RunFest.Controllers
         }
 
         [HttpGet]
+        [AllowAnonymous]
         public IActionResult Login(string returnUrl = null)
         {
             return View(new LoginViewModel { ReturnUrl = returnUrl });
         }
 
         [HttpPost]
+        [AllowAnonymous]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Login(LoginViewModel model)
         {
@@ -122,6 +129,7 @@ namespace RunFest.Controllers
         }
 
         [HttpPost]
+        [AllowAnonymous]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> LogOff()
         {

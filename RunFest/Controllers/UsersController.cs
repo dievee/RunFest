@@ -6,20 +6,22 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Identity;
 using RunFest.Models;
 using RunFest.ViewModels;
+using Microsoft.AspNetCore.Authorization;
 
 namespace RunFest.Controllers
 {
+    [Authorize(Roles = "Admin")]
     public class UsersController : BaseController
     {
-        
-
         public UsersController(UserManager<User> userManager)
         {
             _userManager = userManager;
         }
 
+        [HttpGet]
         public IActionResult Index() => View(_userManager.Users.ToList());
 
+        [HttpGet]
         public IActionResult Create() => View();
 
         [HttpPost]
@@ -44,6 +46,7 @@ namespace RunFest.Controllers
             return View(model);
         }
 
+        [HttpGet]
         public async Task<IActionResult> Edit(string id)
         {
             User user = await _userManager.FindByIdAsync(id);
