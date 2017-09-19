@@ -13,6 +13,9 @@ namespace RunFest.ViewModels
         public string Email { get; set; }
 
         [Required]
+        [Display(Name = "UserName")]
+        public string UserName { get; set; }
+
         [Display(Name = "FullName")]
         public string FullName { get; set; }
 

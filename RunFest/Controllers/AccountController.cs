@@ -70,7 +70,7 @@ namespace RunFest.Controllers
         {
             if (ModelState.IsValid)
             {
-                User user = new User { Email = model.Email, UserName = model.Email, FullName = model.FullName, RunningNumber = _userManager.Users.Count() + 1 };
+                User user = new User { Email = model.Email, UserName = model.UserName, FullName = model.FullName, RunningNumber = _userManager.Users.Count() + 1 };
                
                 var result = await _userManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
