@@ -20,21 +20,6 @@ namespace RunFest.Controllers
             return View("Index");
         }
 
-        [AllowAnonymous]
-        public IActionResult About()
-        {
-            ViewData["Message"] = "Your application description page.";
-
-            return View();
-        }
-
-        [AllowAnonymous]
-        public IActionResult Contact()
-        {
-            ViewData["Message"] = "Your contact page.";
-
-            return View();
-        }
 
         [AllowAnonymous]
         public IActionResult Error()
