@@ -1,0 +1,11 @@
+﻿
+@using RunFest.Models
+
+@if (User.IsInRole("Admin"))
+{
+    <li><a asp-area="" asp-controller="Roles" asp-action="Index">Roles</a></li>
+    <li><a asp-area="" asp-controller="Users" asp-action="Index">Users</a></li>
+    <li><a asp-area="" asp-controller="Run" asp-action="Start">Start</a></li>
+    <li><a asp-area="" asp-controller="Run" asp-action="Finish">Finish</a></li>
+    <li><a asp-area="" asp-controller="Run" asp-action="Finished">Finished</a></li>
+}
