@@ -4,19 +4,19 @@
 }
 @if (Model != null && Model.Count != 0)
 {
-    @foreach (var user in Model)
-    {
-        <div style="background-color: gainsboro;">
-            <p>@user.FullName  @user.RunningNumber</p>
-            <br />
-            <div>
-                <p style="color: green;">@user.StartTime</p>
-                <br />
-                <p style="color: red;">@user.FinishTime</p>
-            </div>
+    <table class="table">
+        <tr><th>Full Name</th><th>Running Number</th><th>Start Time</th><th>Finish Time</th></tr>
+        @foreach (var user in Model)
+        {
+            <tr>
+                <td>@user.FullName</td>
+                <td>@user.RunningNumber</td>
+                <td>@user.StartTime.TimeOfDay.ToString(@"hh\:mm\:ss")</td>
+                <td>@user.FinishTime.TimeOfDay.ToString(@"hh\:mm\:ss")</td>
+            </tr>
+        }
+    </table>
 
-        </div>
-    }
 }
 else
 {
