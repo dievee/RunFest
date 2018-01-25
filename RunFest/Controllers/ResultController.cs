@@ -13,7 +13,7 @@ namespace RunFest.Controllers
     {
         private readonly DateTimeOffset emptyTime = new DateTimeOffset();
 
-        public ResultController(UserManager<User> userManager)
+        public ResultController(UserManager<User> userManager = null)
         {
             _userManager = userManager;
         }
@@ -23,9 +23,23 @@ namespace RunFest.Controllers
         [AllowAnonymous]
         public IActionResult Index()
         {
-            List<User> Users = _userManager.Users.Where(User => User.FinishTime.CompareTo(emptyTime) > 0).OrderBy(User => User.ResultTime).ToList(); //.Where(User => User.StartTime.CompareTo(emptyTime) == 0)
+            List<User> Users = _userManager.Users.ToList();
+            Users = GetFinishedUsers(Users);
+            Users = OrderFinishedUsers(Users);
 
-            return View(Users);
+            return View( Users );
+        }
+
+        public List<User> GetFinishedUsers(List<User> Users)
+        {
+
+            return Users.Where(User => User.FinishTime.CompareTo(emptyTime) > 0).ToList();
+        }
+
+        public List<User> OrderFinishedUsers(List<User> Users)
+        {
+
+            return Users.OrderBy(User => User.ResultTime).ToList();
         }
     }
 }
