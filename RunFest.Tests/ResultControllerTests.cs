@@ -13,7 +13,7 @@ using Xunit;
 
 namespace RunFest.Tests
 {
-    public class ResultControllerTest
+    public class ResultControllerTests
     {
         private static readonly DateTimeOffset emptyTime = new DateTimeOffset();
 

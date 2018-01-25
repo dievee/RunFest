@@ -14,7 +14,7 @@ namespace RunFest.Controllers
     {
         private readonly DateTimeOffset emptyTime = new DateTimeOffset();
 
-        public RunController(UserManager<User> userManager)
+        public RunController(UserManager<User> userManager = null)
         {
             _userManager = userManager;
         }
@@ -22,10 +22,18 @@ namespace RunFest.Controllers
         [HttpGet]
         public IActionResult Start()
         {
-            List<User> Users = _userManager.Users.Where( User => User.StartTime.CompareTo(emptyTime) == 0 ).OrderBy(User => User.RunningNumber).ToList();
+            List<User> Users = _userManager.Users.ToList();
+            Users = GetNotStartedUsers(Users).OrderBy(User => User.RunningNumber).ToList();
 
             return View(Users);
         }
+
+        public List<User> GetNotStartedUsers(List<User> Users)
+        {
+
+            return Users.Where(User => User.StartTime.CompareTo(emptyTime) == 0).ToList();
+        }
+
 
         [HttpPost]
         public async Task<IActionResult> Start(string userId)
@@ -46,7 +54,9 @@ namespace RunFest.Controllers
                         }
                     }
                 }
-                List<User> Users = _userManager.Users.Where(User => User.StartTime.CompareTo(emptyTime) == 0).OrderBy(User => User.RunningNumber).ToList();
+                List<User> Users = _userManager.Users.ToList();
+                Users = GetNotStartedUsers(Users).OrderBy(User => User.RunningNumber).ToList();
+
                 return View(Users);
             }
             else
@@ -58,9 +68,16 @@ namespace RunFest.Controllers
         [HttpGet]
         public IActionResult Finish()
         {
-            List<User> Users = _userManager.Users.Where(User => User.StartTime.CompareTo(emptyTime) > 0 &&
-                                                                User.FinishTime.CompareTo(emptyTime) == 0).OrderBy(User => User.RunningNumber).ToList();
+            List<User> Users = _userManager.Users.ToList();
+            Users = GetStartedNotFinishedUsers(Users).OrderBy(User => User.RunningNumber).ToList();
+
             return View(Users);
+        }
+
+        public List<User> GetStartedNotFinishedUsers(List<User> Users)
+        {
+
+            return Users.Where(User => User.StartTime.CompareTo(emptyTime) > 0 && User.FinishTime.CompareTo(emptyTime) == 0).ToList();
         }
 
         [HttpPost]
@@ -82,8 +99,9 @@ namespace RunFest.Controllers
                         }
                     }
                 }
-                List<User> Users = _userManager.Users.Where(User => User.StartTime.CompareTo(emptyTime) > 0 &&
-                                                                User.FinishTime.CompareTo(emptyTime) == 0).OrderBy(User => User.RunningNumber).ToList();
+                List<User> Users = _userManager.Users.ToList();
+                Users = GetStartedNotFinishedUsers(Users).OrderBy(User => User.RunningNumber).ToList();
+
                 return View(Users);
             }
             else
@@ -95,11 +113,17 @@ namespace RunFest.Controllers
         [HttpGet]
         public IActionResult Finished()
         {
-            List<User> Users = _userManager.Users.Where(User => User.StartTime.CompareTo(emptyTime) > 0 &&
-                                                                User.FinishTime.CompareTo(emptyTime) > 0).OrderBy(User => User.RunningNumber).ToList();
+            List<User> Users = _userManager.Users.ToList();
+            Users = GetFinishedUsers(Users).OrderBy(User => User.RunningNumber).ToList();
+
             return View(Users);
         }
 
-        
+        public List<User> GetFinishedUsers(List<User> Users)
+        {
+
+            return Users.Where(User => User.FinishTime.CompareTo(emptyTime) > 0).ToList();
+        }
+
     }
 }
